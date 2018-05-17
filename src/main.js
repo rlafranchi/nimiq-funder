@@ -3,6 +3,7 @@ import NimiqFunder from './NimiqFunder.vue'
 
 Vue.config.productionTip = false
 
-new Vue({
+const app = new Vue({
   render: h => h(NimiqFunder)
 }).$mount('#nimiq-funder')
+export default app

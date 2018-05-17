@@ -1,6 +1,9 @@
 rm.DS_Store
 node_modules
 /dist
+/dist-umd
+/nimiq-funder.*/
+nimiq-funder*.zip
 
 # local env files
 .env.local
