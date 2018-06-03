@@ -1,15 +1,15 @@
 <template>
   <div class="nimiq-funder">
-    <div class="backdrop" v-if="expanded" @click="expanded = false"></div>
-    <div class="main">
-      <div class="container" :class="{expanded: expanded}">
+    <div class="nf-backdrop" v-if="expanded" @click="expanded = false"></div>
+    <div class="nf-main">
+      <div class="nf-container" :class="{'nf-expanded': expanded}">
         <div @click="expand()">
-          <div class="logo">
+          <div class="nf-logo">
             <span v-if="expanded"> NIMIQ FUNDER</span>
           </div>
           <small>{{ hashrateFriendly }}</small>
         </div>
-        <div :transition="expand" v-if="expanded">
+        <div v-if="expanded">
           <p>This Website is funded through visitors hashing power on the Nimiq Blockchain. Find out more about Nimiq at <a href="https://nimiq.com" target="_blank">nimiq.com</a></p>
           <ul>
             <li>Consensus: {{ status }}</li>
@@ -17,9 +17,9 @@
             <li>Funding Address: <a :href="`https://nimiq.watch/#${address.replace(/\s/g, '+')}`" target="_blank">{{ address }}</a></li>
             <li>Height: #{{ height }}</li>
           </ul>
-          <button class="button" :class="{'secondary-button': !mining}" @click="optIn()">Opt In</button>
-          <button class="button" :class="{'secondary-button': mining}" @click="optOut()">Opt Out</button>
-          <p class="info" v-if="expanded">source: <a href="https://github.com/rlafranchi/nimiq-funder" target="_blank">rlafranchi/nimiq-funder</a></p>
+          <button class="nf-button" :class="{'nf-secondary-button': !mining}" @click="optIn()">Opt In</button>
+          <button class="nf-button" :class="{'nf-secondary-button': mining}" @click="optOut()">Opt Out</button>
+          <p class="nf-info" v-if="expanded">source: <a href="https://github.com/rlafranchi/nimiq-funder" target="_blank">rlafranchi/nimiq-funder</a></p>
         </div>
       </div>
     </div>
@@ -165,7 +165,7 @@ export default {
 <style scoped lang="scss">
 
 .nimiq-funder {
-  .backdrop {
+  .nf-backdrop {
     position: fixed;
     background-color: rgba(0,0,0,0.3);
     background-size: cover;
@@ -177,7 +177,7 @@ export default {
     transition: all 0.5s ease-in-out;
   }
 
-  .main {
+  .nf-main {
     color: rgba(255,255,255,0.9);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -193,11 +193,11 @@ export default {
     border-top-right-radius: 4px;
     padding: 10px;
 
-    .container {
+    .nf-container {
       width: 100px;
       height: 20px;
       transition: all 0.5s ease;
-      &.expanded {
+      &.nf-expanded {
         height: 220px;
         width: 200px;
         small {
@@ -207,7 +207,7 @@ export default {
       }
     }
 
-    .logo {
+    .nf-logo {
       height: 24px;
       box-sizing: border-box;
       background-image: url('data:image/svg+xml;utf8,<svg width="499" height="440" xmlns="http://www.w3.org/2000/svg"><path d="M389.33 20.73C382.65 9.28 366.48 0 353.24 0h-208c-13.26 0-29.4 9.28-36.09 20.73L5.33 198.87c-6.68 11.45-6.68 30.02 0 41.47l103.82 178.14c6.68 11.45 22.85 20.74 36.09 20.74h208c13.26 0 29.4-9.28 36.09-20.74l103.82-178.14c6.68-11.45 6.68-30.01 0-41.47L389.33 20.73zM272.6 347.45v41.1h-38.74v-39.53c-23.53-2.82-51.45-13.02-70.28-30.12l25.57-39.06c20.4 15.06 37.96 22.9 57.1 22.9 22.43 0 32.31-9.1 32.31-27.29 0-40.63-105.4-39.84-105.4-111.06 0-38.74 23.2-65.57 60.7-73.1V50.51h38.74v40c25.57 3.6 43.92 16.16 59.45 32.47l-29.49 33.26c-14.43-13.02-26.66-19.77-43.45-19.77-19.13 0-29.49 7.53-29.49 25.26 0 37.49 105.41 34.35 105.41 109.96-.15 37.8-21.33 67.13-62.43 75.76z" fill="%23FFC107" fill-rule="evenodd"/></svg>');
@@ -217,7 +217,7 @@ export default {
       cursor: pointer;
     }
 
-    .expand {
+    .nf-expand {
       float: right;
     }
 
@@ -245,13 +245,13 @@ export default {
       padding-left: 0px;
     }
 
-    .info {
+    .nf-info {
       position: absolute;
       bottom: 2px;
       left: 10px;
     }
 
-    .button {
+    .nf-button {
       color: white;
       background: #e2a62f;
       box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -266,24 +266,19 @@ export default {
       transition: background .2s ease;
     }
 
-    .button:hover {
+    .nf-button:hover {
       background: #E69E1D;
     }
 
-    .secondary-button {
+    .nf-secondary-button {
       box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2);
       border: 2px solid rgba(255, 255, 255, 0.7);
       color: white;
       transition: color .3s, border .3s;
     }
 
-    .secondary-button:hover {
-      /*border: 2px solid #ffc107;*/
-      /*color: #ffc107;*/
-    }
-
-    .button,
-    .secondary-button {
+    .nf-button,
+    .nf-secondary-button {
       border-radius: 3px;
       margin: 6px;
       padding: 4px 12px !important;
@@ -292,9 +287,7 @@ export default {
       letter-spacing: 1pt;
     }
 
-    .secondary-button {
-      /*border: 2px solid #e2a62f;*/
-      /*color: #e2a62f;*/
+    .nf-secondary-button {
       background-color: transparent;
     }
   }

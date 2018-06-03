@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build && yarn build-umd",
-    "build-umd": "vue-cli-service build --target lib --name nimiq-funder --dest ./dist-umd ./src/main.js && cp ./demo.html dist-umd/demo.html",
+    "build-umd": "vue-cli-service build --target lib --name nimiq-funder --dest ./dist/umd ./src/main.js && cp ./demo.html dist/umd/demo.html",
     "build-help": "vue-cli-service build --help",
     "lint": "vue-cli-service lint"
   },
