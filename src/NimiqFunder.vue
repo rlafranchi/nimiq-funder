@@ -133,7 +133,6 @@ export default {
       this.connectOrDisconnect()
     },
     connectOrDisconnect() {
-      console.info($nimiq.miner)
       setTimeout(() => {
         if (this.mining) {
           if ($nimiq.miner.isConnected()) {
