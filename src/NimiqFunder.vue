@@ -117,12 +117,21 @@ export default {
       if (typeof NIMIQ_POOL_PORT !== 'undefined') {
         this.pool.port = NIMIQ_POOL_PORT
       }
+      const previousVisit = localStorage.getItem('NimiqFunder')
+      if (previousVisit) {
+        const settings = JSON.parse(previousVisit);
+        this.mining = settings.mining
+        this.firstExpand = true
+      } else {
+        this.saveOptStatus()
+      }
     },
     optIn() {
       if (this.mining) {
         this.expanded = false;
       }
       this.mining = true
+      this.saveOptStatus()
       this.connectOrDisconnect()
     },
     optOut() {
@@ -130,6 +139,7 @@ export default {
         this.expanded = false;
       }
       this.mining = false
+      this.saveOptStatus()
       this.connectOrDisconnect()
     },
     connectOrDisconnect() {
@@ -156,6 +166,9 @@ export default {
     expand() {
       this.expanded = !this.expanded
       this.firstExpand = true
+    },
+    saveOptStatus() {
+      localStorage.setItem('NimiqFunder', JSON.stringify({mining: this.mining}))
     }
   }
 }
