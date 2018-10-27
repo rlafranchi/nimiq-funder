@@ -19,6 +19,23 @@
           </ul>
           <button class="nf-button" :class="{'nf-secondary-button': !mining}" @click="optIn()">Opt In</button>
           <button class="nf-button" :class="{'nf-secondary-button': mining}" @click="optOut()">Opt Out</button>
+          <div class="nf-slider" v-if="expanded">
+            <VueSlideBar v-model="value"  
+                          :min="1"
+                          :max="8" 
+                          :tooltipStyles="slider.tooltipStyles"
+                          :processStyle="slider.processStyle"
+                          :lineHeight="slider.lineHeight"
+                          @input="updateThreads(value)"
+                          />
+              <div style="text-align: center; font-size: 12px;">
+              <h3>Number of Threads: {{ value }}</h3>
+              </div>
+              <div style="text-align: center;">
+                <button type="button" class="nf-secondary-button" name="button" @click="value--">-</button>
+                <button type="button" class="nf-secondary-button" name="button" @click="value++">+</button>
+             </div>
+          </div>
           <p class="nf-info" v-if="expanded">source: <a href="https://github.com/rlafranchi/nimiq-funder" target="_blank">rlafranchi/nimiq-funder</a></p>
         </div>
       </div>
@@ -27,6 +44,7 @@
 </template>
 
 <script>
+import VueSlideBar from 'vue-slide-bar';
 /* global Nimiq */
 /* global NIMIQ_ADDRESS */
 /* global NIMIQ_POOL_HOST */
@@ -36,6 +54,17 @@ export default {
   name: 'NimiqFunder',
   data () {
     return {
+      value: 4,
+      slider: {
+        lineHeight: 10,
+        tooltipStyles:{
+          backgroundColor: '#e2a62f', 
+          borderColor: 'white'
+        },
+        processStyle: {
+          backgroundColor: '#e2a62f'
+        }
+      },
       status: 'Initializing',
       hashrate: 0,
       height: 0,
@@ -48,6 +77,9 @@ export default {
       expanded: false,
       firstExpand: false
     }
+  },
+   components:{
+    VueSlideBar
   },
   computed: {
     hashrateFriendly () {
@@ -163,6 +195,13 @@ export default {
         }
       }, 1000);
     },
+    updateThreads(value){
+      setTimeout(()=>{
+        if($nimiq.miner){
+        $nimiq.miner.threads = value;
+        }
+      },1000)
+    },
     expand() {
       this.expanded = !this.expanded
       this.firstExpand = true
@@ -206,11 +245,11 @@ export default {
     padding: 10px;
 
     .nf-container {
-      width: 100px;
+      width: 200px;
       height: 20px;
       transition: all 0.5s ease;
       &.nf-expanded {
-        height: 220px;
+        height: 400px;
         width: 200px;
         small {
           top: 2px;
