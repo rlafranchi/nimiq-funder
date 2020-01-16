@@ -1,4 +1,7 @@
 # Nimiq Funder
+
+[![Donate NIM](https://www.nimiq.com/accept-donations/img/donationBtnImg/light-blue-small.svg)](https://safe.nimiq.com/#_request/NQ74R51G6D5F4F416V19YHD9CAX88D3319Y2_)
+
 Funding websites with [Nimiq](https://nimiq.com)
 
 See the [Demo](https://rlafranchi.github.io/nimiq-funder) or see it in action on [my blog](https://rlafranchi.github.io)
