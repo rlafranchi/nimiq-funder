@@ -17,8 +17,10 @@
             <li>Funding Address: <a :href="`https://nimiq.watch/#${address.replace(/\s/g, '+')}`" target="_blank">{{ address }}</a></li>
             <li>Height: #{{ height }}</li>
           </ul>
-          <button class="nf-button" :class="{'nf-secondary-button': !mining}" @click="optIn()">Opt In</button>
-          <button class="nf-button" :class="{'nf-secondary-button': mining}" @click="optOut()">Opt Out</button>
+          <div id="optinout" v-if="!autoStart">
+            <button class="nf-button" :class="{'nf-secondary-button': !mining}" @click="optIn()">Opt In</button>
+            <button class="nf-button" :class="{'nf-secondary-button': mining}" @click="optOut()">Opt Out</button>
+          </div>
           <p class="nf-info" v-if="expanded">source: <a href="https://github.com/rlafranchi/nimiq-funder" target="_blank">rlafranchi/nimiq-funder</a></p>
         </div>
       </div>
@@ -31,6 +33,7 @@
 /* global NIMIQ_ADDRESS */
 /* global NIMIQ_POOL_HOST */
 /* global NIMIQ_POOL_PORT */
+/* global NIMIQ_AUTO_START */
 const $nimiq = {}
 export default {
   name: 'NimiqFunder',
@@ -46,7 +49,8 @@ export default {
       },
       mining: true,
       expanded: false,
-      firstExpand: false
+      firstExpand: false,
+      autoStart: false
     }
   },
   computed: {
@@ -116,6 +120,9 @@ export default {
       }
       if (typeof NIMIQ_POOL_PORT !== 'undefined') {
         this.pool.port = NIMIQ_POOL_PORT
+      }
+      if (typeof NIMIQ_AUTO_START !== 'undefined') {
+        this.autoStart = NIMIQ_AUTO_START
       }
       const previousVisit = localStorage.getItem('NimiqFunder')
       if (previousVisit) {
